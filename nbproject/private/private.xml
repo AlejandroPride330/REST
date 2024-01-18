@@ -3,10 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Alex/Documents/NetBeansProjects/miapp1/src/java/UTILS/HibernateUtil.java</file>
-            <file>file:/C:/Users/Alex/Documents/NetBeansProjects/miapp1/src/java/DAO/UsersDAO.java</file>
-            <file>file:/C:/Users/Alex/Documents/NetBeansProjects/miapp1/src/java/MODEL/User.java</file>
-            <file>file:/C:/Users/Alex/Documents/NetBeansProjects/miapp1/src/java/POJO/UsersPOJO.java</file>
+            <file>file:/C:/Users/Alex/Documents/NetBeansProjects/REST/src/java/MODEL/User.java</file>
+            <file>file:/C:/Users/Alex/Documents/NetBeansProjects/REST/src/java/DAO/UsersDAO.java</file>
+            <file>file:/C:/Users/Alex/Documents/NetBeansProjects/REST/src/java/REST/RestApp.java</file>
+            <file>file:/C:/Users/Alex/Documents/NetBeansProjects/REST/src/java/UTILS/HibernateUtil.java</file>
+            <file>file:/C:/Users/Alex/Documents/NetBeansProjects/REST/src/java/UTILS/FicherosXML.java</file>
+            <file>file:/C:/Users/Alex/Documents/NetBeansProjects/REST/src/java/UTILS/Utils.java</file>
+            <file>file:/C:/Users/Alex/Documents/NetBeansProjects/REST/src/java/com/servicios/UserService.java</file>
         </group>
     </open-files>
 </project-private>

@@ -4,43 +4,92 @@
  */
 package com.servicios;
 
+import DAO.UsersDAO;
 import MODEL.User;
+import UTILS.FicherosXML;
+import UTILS.HibernateUtil;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 /**
  *
  * @author Alex
  */
 @Path("/users")
-public class UserService {
- 
+public class UserService implements UsersDAO {
+
     @GET
     @Path("/all/xml")
     @Produces(MediaType.APPLICATION_XML)
-    public List<User> getUsersXML(){
-         List<User> l = new ArrayList<>();
-         l.add(new User( "Alex", "Eljefe", 1993));
-         l.add(new User( "Enrique", "profesor", 1976));
-         return l;
+    public List<User> getUsersXML() {
+        List<User> l = new ArrayList<>();
+        l.add(new User("Alex", "Eljefe", 1993));
+        l.add(new User("Enrique", "profesor", 1976));
+        return l;
     }
-    
+
     @GET
     @Path("/all/json")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<User> getUsersJSON(){
-         List<User> l = new ArrayList<>();
-         l.add(new User( "Alex", "Eljefe", 1993));
-         l.add(new User( "Enrique", "profesor", 1976));
-         return l;
+    public List<User> getUsersJSON() {
+        List<User> l = new ArrayList<>();
+        l = insertUser();
+        return l;
     }
-    
-   // @POST
-    
+
+    @POST
+    public List<User> insertUser() {
+        Transaction tx = null;
+        List<User> l = new ArrayList<>();
+        //try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            try{
+            FicherosXML fxml = new FicherosXML();
+            HashMap<String, String> mapa = new HashMap<String, String>();
+            mapa = fxml.leerXML();
+
+            User u = new User( mapa.get("name"),  mapa.get("rol"), Integer.parseInt(mapa.get("yearBirth")));
+            l.add(u);
+            System.out.println(l);
+        } catch (HibernateException e) {
+            System.out.println(e);
+
+        }
+        return l;
+    }
+//   
+//   @GET
+//   @Path("/all/XML")
+//    public List<User> getAllProductXML() {
+//        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+//            Query<User> query = session.createQuery("FROM User", User.class);
+//            return query.getResultList();
+//
+//        } catch (HibernateException e) {
+//            System.out.println(e);
+//            return null;
+//        }
+//    }    
+
+//    @GET
+//   @Path("/all/JSON")
+//    public List<User> getAllProductJSON() {
+//        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+//            Query<User> query = session.createQuery("FROM User", User.class);
+//            return query.getResultList();
+//
+//        } catch (HibernateException e) {
+//            System.out.println(e);
+//            return null;
+//        }
+//    }    
 }
