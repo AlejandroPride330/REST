@@ -17,6 +17,10 @@ public interface UsersDAO {
     public List<User> getUsers();
 
     public User getUserByID(@PathParam("id") int id);
+    
+    public List<User> getUserByYearBirth(@PathParam("yearBirth") int yearBirth);
+    
+    
 //    public List<User> getAllProductXML();
 //
 //    public List<User> getAllProductJSON();

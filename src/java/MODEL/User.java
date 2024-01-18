@@ -17,12 +17,12 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  * @author Alex
  */
 @Entity
-@Table(name="Users")
+@Table(name="User")
 @XmlRootElement
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private int id;
     @Column(name=" name")
     private String name;
     @Column(name=" rol")
@@ -45,11 +45,11 @@ public class User {
         return "User{" + "id=" + id + ", name=" + name + ", rol=" + rol + ", yearBirth=" + yearBirth + '}';
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -75,8 +75,5 @@ public class User {
 
     public void setYearBirth(int yearBirth) {
         this.yearBirth = yearBirth;
-    }
-    
-    
-            
+    }           
 }

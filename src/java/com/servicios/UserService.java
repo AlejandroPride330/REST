@@ -26,7 +26,7 @@ import org.hibernate.Transaction;
  */
 @Path("/users")
 public class UserService implements UsersDAO {
-    
+
     @GET
     @Path("/all")
     @Produces(MediaType.APPLICATION_XML)
@@ -45,7 +45,7 @@ public class UserService implements UsersDAO {
     }
 
     @GET
-    @Path("/{id}")
+    @Path("/id/{id}") // si no pongo un prefijo (/id) no sabe diferenciar de la entrada del yearBirth
     @Produces(MediaType.APPLICATION_XML)
     @Override
     public User getUserByID(@PathParam("id") int id) {
@@ -56,6 +56,22 @@ public class UserService implements UsersDAO {
             System.out.println("No se ha podido obtener la lista de usuarios");
             return null;
         }
+    }
+
+
+    @GET
+    @Path("/yearBirth/{yearBirth}") // si no pongo un prefijo (/yearBirth) no sabe diferenciar de la entrada del id
+    @Produces(MediaType.APPLICATION_XML)
+    @Override
+    public List<User> getUserByYearBirth(@PathParam("yearBirth") int yearBirth) {
+        List<User> l = null;
+        try {
+            l = UserDaoImplements.getUserByYearBirth(yearBirth);
+            
+        } catch (Exception ex) {
+            System.out.println("No se ha podido obtener la lista de usuarios");
+        }
+        return l;
     }
     
     @GET
@@ -72,7 +88,7 @@ public class UserService implements UsersDAO {
     @Path("/all/json")
     @Produces(MediaType.APPLICATION_JSON)
     public List<User> getUsersJSON() {
-         List<User> l = new ArrayList<>();
+        List<User> l = new ArrayList<>();
         l.add(new User("Alex", "Eljefe", 1993));
         l.add(new User("Enrique", "profesor", 1976));
         return l;
@@ -86,12 +102,12 @@ public class UserService implements UsersDAO {
         Transaction tx = null;
         List<User> l = new ArrayList<>();
         //try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            try{
+        try {
             FicherosXML fxml = new FicherosXML();
             HashMap<String, String> mapa = new HashMap<String, String>();
             mapa = fxml.leerXML();
 
-            User u = new User( mapa.get("name"),  mapa.get("rol"), Integer.parseInt(mapa.get("yearBirth")));
+            User u = new User(mapa.get("name"), mapa.get("rol"), Integer.parseInt(mapa.get("yearBirth")));
             l.add(u);
             System.out.println(l);
         } catch (HibernateException e) {
