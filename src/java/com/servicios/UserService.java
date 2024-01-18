@@ -8,6 +8,7 @@ import DAO.UserDaoImplements;
 import DAO.UsersDAO;
 import MODEL.User;
 import UTILS.FicherosXML;
+import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -31,7 +32,7 @@ public class UserService implements UsersDAO {
     @Path("/all")
     @Produces(MediaType.APPLICATION_XML)
     @Override
-    public List<User> getUsers() {
+    public List<User> getUsers() { // este ya devuelve en xml
         try {
             List<User> users = UserDaoImplements.getUsers();
 //            users.add(new User("Enrique Nogal", "Profesor", 1976));
@@ -74,31 +75,38 @@ public class UserService implements UsersDAO {
         return l;
     }
     
-    @GET
-    @Path("/all/xml")
-    @Produces(MediaType.APPLICATION_XML)
-    public List<User> getUsersXML() {
-        List<User> l = new ArrayList<>();
-        l.add(new User("Alex", "Eljefe", 1993));
-        l.add(new User("Enrique", "profesor", 1976));
-        return l;
-    }
+//    @GET
+//    @Path("/all/xml")
+//    @Produces(MediaType.APPLICATION_XML)
+//    public List<User> getUsersXML() {
+//        List<User> l = new ArrayList<>();
+//        l.add(new User("Alex", "Eljefe", 1993));
+//        l.add(new User("Enrique", "profesor", 1976));
+//        return l;
+//    }
 
     @GET
-    @Path("/all/json")
+    @Path("/all/json")  //solo con llamar al metodo getUsers pero con el mediaType.APPLICATION_JSON ya devuelve el json
     @Produces(MediaType.APPLICATION_JSON)
     public List<User> getUsersJSON() {
-        List<User> l = new ArrayList<>();
-        l.add(new User("Alex", "Eljefe", 1993));
-        l.add(new User("Enrique", "profesor", 1976));
-        return l;
+        try {
+            return UserDaoImplements.getUsers();
+//        List<User> l = new ArrayList<>();
+//        l.add(new User("Alex", "Eljefe", 1993));
+//        l.add(new User("Enrique", "profesor", 1976));
+//        return l;
 //        List<User> l = new ArrayList<>();  he metido aquí datos para probar
 //        l = insertUser();
 //        return l;
+        } catch (Exception ex) {
+            System.out.println("No se ha podido obtener la lista de usuarios");
+            return null;
+        } 
     }
 
+    // falta hacer este insert
     @POST
-    public List<User> insertUser() {
+    public List<User> insertUser(@FormParam("nombre") String nombre, @FormParam("rol") String rol, @FormParam("yearBirth") int yearBirth) {
         Transaction tx = null;
         List<User> l = new ArrayList<>();
         //try (Session session = HibernateUtil.getSessionFactory().openSession()) {
