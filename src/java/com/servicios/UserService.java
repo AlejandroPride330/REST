@@ -4,22 +4,21 @@
  */
 package com.servicios;
 
+import DAO.UserDaoImplements;
 import DAO.UsersDAO;
 import MODEL.User;
 import UTILS.FicherosXML;
-import UTILS.HibernateUtil;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import org.hibernate.HibernateException;
-import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 
 /**
  *
@@ -27,7 +26,38 @@ import org.hibernate.query.Query;
  */
 @Path("/users")
 public class UserService implements UsersDAO {
+    
+    @GET
+    @Path("/all")
+    @Produces(MediaType.APPLICATION_XML)
+    @Override
+    public List<User> getUsers() {
+        try {
+            List<User> users = UserDaoImplements.getUsers();
+//            users.add(new User("Enrique Nogal", "Profesor", 1976));
+//            users.add(new User("Elia Nogal", "Alumno", 2005));
+//            return UserDaoImplements.getUsers();
+            return users;
+        } catch (Exception ex) {
+            System.out.println("No se ha podido obtener la lista de usuarios");
+            return null;
+        }
+    }
 
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_XML)
+    @Override
+    public User getUserByID(@PathParam("id") int id) {
+        try {
+            User user = UserDaoImplements.getUserByID(id);
+            return user;
+        } catch (Exception ex) {
+            System.out.println("No se ha podido obtener la lista de usuarios");
+            return null;
+        }
+    }
+    
     @GET
     @Path("/all/xml")
     @Produces(MediaType.APPLICATION_XML)
@@ -42,9 +72,13 @@ public class UserService implements UsersDAO {
     @Path("/all/json")
     @Produces(MediaType.APPLICATION_JSON)
     public List<User> getUsersJSON() {
-        List<User> l = new ArrayList<>();
-        l = insertUser();
+         List<User> l = new ArrayList<>();
+        l.add(new User("Alex", "Eljefe", 1993));
+        l.add(new User("Enrique", "profesor", 1976));
         return l;
+//        List<User> l = new ArrayList<>();  he metido aquí datos para probar
+//        l = insertUser();
+//        return l;
     }
 
     @POST

@@ -5,6 +5,7 @@
 package DAO;
 
 import MODEL.User;
+import jakarta.ws.rs.PathParam;
 import java.util.List;
 
 /**
@@ -13,10 +14,11 @@ import java.util.List;
  */
 public interface UsersDAO {
 
+    public List<User> getUsers();
+
+    public User getUserByID(@PathParam("id") int id);
 //    public List<User> getAllProductXML();
 //
 //    public List<User> getAllProductJSON();
-    
-    
 
 }

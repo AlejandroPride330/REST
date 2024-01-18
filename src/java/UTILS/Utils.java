@@ -29,7 +29,7 @@ public class Utils {
             for (File file : files) {
                 //System.out.println(file);
                 if (getFileExtension(file).equals("json")) {
-                    FicherosJSON ljson = new FicherosJSON();
+//                    FicherosJSON ljson = new FicherosJSON();
                     
                 } else if (getFileExtension(file).equals("xml")) {
                     FicherosXML lxml = new FicherosXML();
@@ -37,8 +37,7 @@ public class Utils {
                 } else {
                     System.out.println("Excluyendo el fichero " + file.getName());
                 }
-            }
-                
+            }              
         }
     
 }
