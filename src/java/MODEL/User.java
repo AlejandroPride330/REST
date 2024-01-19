@@ -4,30 +4,21 @@
  */
 package MODEL;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.xml.bind.annotation.XmlRootElement;
+
 
 /**
  *
  * @author Alex
  */
-@Entity
-@Table(name="User")
-@XmlRootElement
+
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    @Column(name=" name")
+
+    private String id;
+
     private String name;
-    @Column(name=" rol")
+
     private String rol;
-    @Column(name=" yearBirth")
+
     private int yearBirth;
 
     public User() {
@@ -45,11 +36,11 @@ public class User {
         return "User{" + "id=" + id + ", name=" + name + ", rol=" + rol + ", yearBirth=" + yearBirth + '}';
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
